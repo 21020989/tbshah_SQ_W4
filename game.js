@@ -24,14 +24,14 @@ const STORY_NODES = {
     ],
   },
   Water_Park: {
-    text: "I see two rides, One is a log ride, the other a 70ft water slide.",
+    text: "I enter the Water park. I see two rides, One is a log ride, the other a 70ft water slide.",
     options: [
       { label: "Log Ride!", next: "log_ride" },
       { label: "Water Slide!", next: "water_slide" },
     ],
   },
   Roller_Coster: {
-    text: "You see a old friend ahead in line! he offers you to cut ahead",
+    text: "I go to the roller coasters and see a old friend ahead in line! he offers you to cut ahead",
     options: [
       { label: "Skip the Line", next: "skip_line" },
       { label: "Wait in Line", next: "wait_line" },
@@ -66,7 +66,7 @@ const STORY_NODES = {
     ],
   },
   conflict: {
-    text: "You tell the guy off, He boiling with rage. He punches you in the stomach, grabs your head and bangs it on the metal railing, shattering your skull. You die a bloody mess.",
+    text: "You tell the guy off, He boils with rage. He punches you in the stomach, grabs your head and bangs it on the metal railing, shattering your skull. You die a bloody mess.",
     options: [],
   },
   complain: {
