@@ -19,13 +19,7 @@ function drawBackground() {
 
 // ------------------------------------------------------------
 // drawBlob(x, y, r, col, t)
-// Draws a noise blob at the given position and size.
-// Called with different arguments for the player and NPC blobs.
-//
-// x, y — centre position of the blob
-// r    — radius of the blob
-// col  — p5 color object (e.g. color(0, 200, 180))
-// t    — animation time; increases each frame to drive the wobble
+// Draws a simple animated blob used in the game background.
 // ------------------------------------------------------------
 function drawBlob(x, y, r, col, t) {
   push();
@@ -33,26 +27,14 @@ function drawBlob(x, y, r, col, t) {
   noStroke();
 
   beginShape();
-  let numPoints = 48; // more points = smoother shape
+  let numPoints = 32;
   for (let i = 0; i < numPoints; i++) {
     let angle = (TWO_PI / numPoints) * i;
-
-    // noise() returns a smooth random value between 0 and 1.
-    // We use it to push each vertex slightly in or out.
     let noiseVal = noise(cos(angle) * 0.8 + t, sin(angle) * 0.8 + t);
-
-    // map() converts noise (0–1) to a radius offset (-8 to +8 pixels)
     let nr = r + map(noiseVal, 0, 1, -8, 8);
-
-    // Convert polar coordinates (angle, radius) to x/y
     vertex(x + cos(angle) * nr, y + sin(angle) * nr);
   }
   endShape(CLOSE);
-
-  // Eyes
-  fill(10);
-  ellipse(x - 9, y - 7, 8, 8);
-  ellipse(x + 9, y - 7, 8, 8);
 
   pop();
 }
@@ -104,28 +86,33 @@ function isMouseOver(x, y, w, h) {
 }
 
 // ------------------------------------------------------------
-// drawResultText(result)
-// Draws the round result in the centre of the canvas.
-// result is "win", "lose", or "draw" — set in game.js.
+// drawRoundInfo(player, npc)
+// Draws the selected round info after the player picks an option.
 // ------------------------------------------------------------
-function drawResultText(result) {
+function drawRoundInfo(player, npc) {
   push();
   textAlign(CENTER, CENTER);
   noStroke();
 
-  if (result === "win") {
-    fill(0, 220, 180);
-    textSize(48);
-    text("You Win!", width / 2, height / 2 - 20);
-  } else if (result === "lose") {
-    fill(255, 120, 30);
-    textSize(48);
-    text("You Lose!", width / 2, height / 2 - 20);
-  } else {
-    fill(220, 220, 220);
-    textSize(48);
-    text("Draw!", width / 2, height / 2 - 20);
-  }
+  fill(220, 220, 220);
+  textSize(20);
+  text(`NPC chose ${npc.toUpperCase()}`, width / 2, height / 2 - 20);
 
+  pop();
+}
+
+// ------------------------------------------------------------
+// drawStoryText(textContent)
+// Draws the current story prompt in the top half of the canvas.
+// ------------------------------------------------------------
+function drawStoryText(textContent) {
+  push();
+  fill(220);
+  textAlign(CENTER, TOP);
+  textSize(20);
+  // Position text box centered horizontally
+  let boxWidth = 700;
+  let boxX = (width - boxWidth) / 2;
+  text(textContent, boxX, 80, boxWidth, 200);
   pop();
 }
