@@ -26,16 +26,6 @@ function drawBlob(x, y, r, col, t) {
   fill(col);
   noStroke();
 
-  beginShape();
-  let numPoints = 32;
-  for (let i = 0; i < numPoints; i++) {
-    let angle = (TWO_PI / numPoints) * i;
-    let noiseVal = noise(cos(angle) * 0.8 + t, sin(angle) * 0.8 + t);
-    let nr = r + map(noiseVal, 0, 1, -8, 8);
-    vertex(x + cos(angle) * nr, y + sin(angle) * nr);
-  }
-  endShape(CLOSE);
-
   pop();
 }
 
@@ -54,17 +44,21 @@ function drawButton(x, y, w, h, label, isHovered) {
   push();
   rectMode(CENTER); // x, y are the centre of the rectangle
 
+  // Adjust width to fit the label text if needed
+  textSize(18);
+  let labelWidth = textWidth(label) + 24; // padding around text
+  let buttonWidth = max(w, labelWidth);
+
   // Button background — lighter colour when hovered
   fill(isHovered ? color(80, 80, 100) : color(40, 40, 60));
   stroke(isHovered ? color(180, 180, 220) : color(80, 80, 100));
   strokeWeight(2);
-  rect(x, y, w, h, 8); // rounded corners
+  rect(x, y, buttonWidth, h, 8); // rounded corners
 
   // Button label — centred inside the button
   fill(255);
   noStroke();
   textAlign(CENTER, CENTER);
-  textSize(18);
   text(label, x, y);
 
   pop();
