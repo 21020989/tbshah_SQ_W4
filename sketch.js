@@ -18,8 +18,9 @@ function setup() {
   createCanvas(800, 450);
   textFont("monospace");
 
-  // Start directly at the forest story
-  startStory("1");
+  const urlParams = new URLSearchParams(window.location.search);
+  const nodeParam = urlParams.get("node");
+  startStory(nodeParam);
 }
 
 function draw() {
@@ -95,12 +96,12 @@ function mousePressed() {
 
     for (let i = 0; i < node.options.length; i++) {
       if (isMouseOver(positions[i], BTN_Y, BTN_W, BTN_H)) {
-        chooseOption(i);
+        window.location.href = `index.html?node=${encodeURIComponent(node.options[i].next)}`;
       }
     }
   } else {
     if (isMouseOver(width / 2, 380, 220, 50)) {
-      startStory("1");
+      window.location.href = "index.html";
     }
   }
 }
